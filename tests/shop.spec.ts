@@ -1,5 +1,5 @@
 import {test, expect} from '@playwright/test';
-import { WelcomePage } from '../pages/welcomPage';
+import { WelcomePage } from '../pages/WelcomePage';
 import { CommonPage } from '../pages/CommonPage';
 import * as allure from 'allure-js-commons';
 import { ContactPage } from '../pages/ContactPage';
