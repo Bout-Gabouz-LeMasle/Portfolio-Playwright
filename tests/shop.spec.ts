@@ -21,7 +21,7 @@ test.describe('E-Commerce - Shopping experience', () =>
             await commonPage.goto()
         });
 
-        await test.step('And I verify the product store title on browser', async async => {
+        await test.step('And I verify the product store title on browser', async() => {
             await welcomePage.verifyTitle(/store/i)
         });
 
@@ -33,7 +33,7 @@ test.describe('E-Commerce - Shopping experience', () =>
             await welcomePage.navigateMenu('contact')
         });
 
-        await test.step('And I verify the contact popin is displayed', async async => {
+        await test.step('And I verify the contact popin is displayed', async () => {
             await contactPage.verifyContactPopinVisibility()
         });
     }); 
