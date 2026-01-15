@@ -4,6 +4,7 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+  workflow_dispatch: 
 
 # Autorisations nécessaires pour publier le site web
 permissions:
@@ -32,7 +33,7 @@ jobs:
       if: always()
       with:
         path: playwright-report/
-        
+
   deploy:
     needs: test
     if: always()
