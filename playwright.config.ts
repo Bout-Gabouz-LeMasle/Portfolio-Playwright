@@ -31,15 +31,12 @@ export default defineConfig({
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    /* Base URL to use in actions like `await page.goto('')`. */
-    // baseURL: 'http://localhost:3000',
-
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on',
+    trace: 'retain-on-failure',
     baseURL: 'https://www.demoblaze.com/',
     headless: false,
     screenshot: 'on',
-    video: 'on',
+    video: 'retain-on-failure',
 
     locale: 'fr-FR', 
     timezoneId: 'Europe/Paris',

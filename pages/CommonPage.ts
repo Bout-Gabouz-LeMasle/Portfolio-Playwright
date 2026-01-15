@@ -10,7 +10,7 @@ export class CommonPage
 
     async goto()
     {
-        await this.page.goto('/',{ waitUntil: 'domcontentloaded' });
+        await this.page.goto('/');
     }
 
     async closeBrowser()

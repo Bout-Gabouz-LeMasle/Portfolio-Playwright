@@ -1,19 +1,21 @@
 import { expect, FrameLocator, type Locator, type Page} from "@playwright/test";
+import { CommonPage } from "./CommonPage";
 
-export class ContactPage
+export class ContactPage extends CommonPage
 {
-    readonly page: Page;
     readonly contactPopin: Locator;
 
     constructor(page: Page)
     {
-        this.page = page;
+        super(page);
         this.contactPopin = page.locator('#exampleModal');
     }
 
+    /**
+     * This method is used to verify the contact popin is visible.
+     */
     async verifyContactPopinVisibility()
     {
-        await this.contactPopin.waitFor({ state: 'visible', timeout: 10000 });
         await expect(this.contactPopin).toBeVisible();
     }   
 }
