@@ -36,5 +36,13 @@ test.describe('E-Commerce - Shopping experience', () =>
         await test.step('And I verify the contact popin is displayed', async () => {
             await contactPage.verifyContactPopinVisibility()
         });
+
+        await test.step('Then I fill the contact form', async () => {
+            await contactPage.fillContactForm('test@test.com', 'test tester', 'This is a test message')
+        });
+
+        await test.step('And I send the message', async () => {
+            await contactPage.sendMessage()
+        });
     }); 
 });
