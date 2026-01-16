@@ -1,12 +1,12 @@
 import {test, expect} from '@playwright/test';
-import { WelcomePage } from '../pages/WelcomePage';
-import { CommonPage } from '../pages/CommonPage';
+import { WelcomePage } from '../src/pages/WelcomePage';
+import { CommonPage } from '../src/pages/CommonPage';
 import * as allure from 'allure-js-commons';
-import { ContactPage } from '../pages/ContactPage';
+import { ContactPage } from '../src/pages/ContactPage';
 
 test.describe('E-Commerce - Shopping experience', () => 
 {
-    test('Shop on product store', async ({page}) =>
+    test('Contact', async ({page}) =>
     {
         const welcomePage = new WelcomePage(page);
         const contactPage = new ContactPage(page);
@@ -29,7 +29,7 @@ test.describe('E-Commerce - Shopping experience', () =>
             await welcomePage.verifyMenuVisibility()
         });
 
-        await test.step('And I navigate to the contact page', async() => {
+        await test.step('When I navigate to the contact page', async() => {
             await welcomePage.navigateMenu('contact')
         });
 
