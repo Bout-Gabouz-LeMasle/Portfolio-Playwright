@@ -12,6 +12,11 @@ export class WelcomePage extends CommonPage
     readonly signinLink: Locator;
     readonly aboutusLink: Locator;
 
+    readonly category: Locator;
+    readonly phonesCategory: Locator;
+    readonly laptopsCategory: Locator;
+    readonly monitorsCategory: Locator;
+
     constructor(page: Page)
     {
         super(page);
@@ -22,6 +27,10 @@ export class WelcomePage extends CommonPage
         this.loginLink = this.shopMenu.locator('#login2');
         this.signinLink = this.shopMenu.locator('#signin2');
         this.aboutusLink = this.shopMenu.locator('[data-target="#videoModal"]');
+        this.category = page.locator('.list-group').filter({ has: page.locator('#cat') });
+        this.phonesCategory = this.category.locator('[onclick="byCat(\'phone\')"]');
+        this.laptopsCategory = this.category.locator('[onclick="byCat(\'notebook\')"]');
+        this.monitorsCategory = this.category.locator('[onclick="byCat(\'monitor\')"]');
     }
 
     /**
@@ -38,14 +47,14 @@ export class WelcomePage extends CommonPage
      */
     async verifyMenuVisibility()
     {
-        await allure.step("Vérification de la visibilité des menus", async () => {
-            await expect.soft(this.shopMenu, "La barre de menu devrait être visible").toBeVisible();
-            await expect.soft(this.homeLink, "Le lien Home devrait être visible").toBeVisible();
-            await expect.soft(this.contactLink, "Le lien Contact devrait être visible").toBeVisible();
-            await expect.soft(this.cartLink, "Le lien Cart devrait être visible").toBeVisible();
-            await expect.soft(this.signinLink, "Le lien Sign In devrait être visible").toBeVisible();
-            await expect.soft(this.aboutusLink, "Le lien About Us devrait être visible").toBeVisible();
-            await expect.soft(this.loginLink, "Le lien Login devrait être visible").toBeVisible();
+        await allure.step("Verify is menu visible", async () => {
+            await expect.soft(this.shopMenu, "The menu bar should be visible").toBeVisible();
+            await expect.soft(this.homeLink, "The Home link should be visible").toBeVisible();
+            await expect.soft(this.contactLink, "The Contact link should be visible").toBeVisible();
+            await expect.soft(this.cartLink, "The Cart link should be visible").toBeVisible();
+            await expect.soft(this.signinLink, "The Sign In link should be visible").toBeVisible();
+            await expect.soft(this.aboutusLink, "The About Us link should be visible").toBeVisible();
+            await expect.soft(this.loginLink, "The Login link should be visible").toBeVisible();
         });
     }
     
@@ -55,8 +64,8 @@ export class WelcomePage extends CommonPage
      */
     async navigateMenu(menuName: 'home' | 'contact' | 'cart' | 'signup' | 'about' | 'login' = 'home')
     {
-        await allure.step(`Navigation vers le menu : ${menuName}`, async () => 
-            {
+        await allure.step(`Navigate to the menu : ${menuName}`, async () => 
+        {
             switch (menuName) 
             {
                 case 'contact':
@@ -78,8 +87,34 @@ export class WelcomePage extends CommonPage
                     await this.aboutusLink.click();
                     break;
                 default:
-                    throw new Error(`Le menu ${menuName} n'existe pas.`);
+                    throw new Error(`The menu ${menuName} does not exist.`);
                     break
+            }
+        });
+    }
+
+    /**
+     * This method is used to navigate to a specific category.
+     * @param categoryName This is the name of the category to navigate to.
+     */
+    async navigateCategory(categoryName: 'phones' | 'laptops' | 'monitors' = 'phones')
+    {
+        await allure.step(`Navigate to the category : ${categoryName}`, async () =>
+        {
+            switch (categoryName) 
+            {
+                case 'phones': 
+                    await this.phonesCategory.click();
+                    break; 
+                case 'laptops':
+                    await this.laptopsCategory.click();
+                    break;
+                case 'monitors':
+                    await this.monitorsCategory.click();
+                    break;  
+                default:
+                    throw new Error(`The category ${categoryName} does not exist.`);
+                    break;
             }
         });
     }

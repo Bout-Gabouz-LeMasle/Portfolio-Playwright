@@ -1,5 +1,6 @@
 import { expect, FrameLocator, type Locator, type Page} from "@playwright/test";
 import { CommonPage } from "./CommonPage";
+import * as allure from 'allure-js-commons';
 
 export class ContactPage extends CommonPage
 {
@@ -35,14 +36,23 @@ export class ContactPage extends CommonPage
      */
     async fillContactForm(email: string, name: string, message: string)
     {
-        await this.emailInput.fill(email);
-        await this.nameInput.fill(name);
-        await this.messageInput.fill(message);
+        await allure.step("Fill contact form", async () => 
+        {
+            await this.emailInput.fill(email);
+            await this.nameInput.fill(name);
+            await this.messageInput.fill(message);
+        });
     }
 
+    /**
+     * This method is used to send the contact message.
+     */
     async sendMessage()
     {
-        await this.sendMessageButton.click();
+        await allure.step("Send contact message", async () =>
+        {
+            await this.sendMessageButton.click();
         await expect(this.contactPopin).toBeHidden();
+        });
     }
 }
