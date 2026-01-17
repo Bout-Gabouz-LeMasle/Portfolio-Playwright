@@ -16,6 +16,11 @@ on:
         - firefox
         - webkit
         - all
+      grep_tags:
+        description: 'Tags (ex: @smoke). Leave empty to run all tests.'
+        required: false
+        type: string
+        default: ''
 
 permissions:
   contents: read
@@ -48,14 +53,22 @@ jobs:
     - name: Run Playwright tests
       run: |
         BROWSER="${{ inputs.browser }}"
+        TAGS="${{ inputs.grep_tags }}"
+
+        CMD="npx playwright test"
         
-        if [ "$BROWSER" == "all" ] || [ -z "$BROWSER" ]; then
-          echo "🚀 Run tests on all browsers..."
-          npx playwright test
-        else
-          echo "🚀 Run tests only on: $BROWSER"
-          npx playwright test --project=$BROWSER
+        if [ "$BROWSER" != "all" ] && [ -n "$BROWSER" ]; then
+           echo "🎯 Browser filter: $BROWSER"
+           CMD="$CMD --project=$BROWSER"
         fi
+
+        if [ -n "$TAGS" ]; then
+           echo "🏷️  Tag filter: $TAGS"
+           CMD="$CMD --grep $TAGS"
+        fi
+        
+        echo "🚀 Executing: $CMD"
+        $CMD
 
     - uses: actions/upload-pages-artifact@v3
       if: always()

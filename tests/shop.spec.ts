@@ -6,9 +6,9 @@ import { ContactPage } from '../src/pages/ContactPage';
 import { ProductPage } from '../src/pages/ProductPage';
 import { ProductDetailsPage } from '../src/pages/ProductDetailsPage';
 
-test.describe('E-Commerce - Shopping experience', () => 
+test.describe('E-Commerce - Shopping experiencen @Ecommerce', () => 
 {
-    test('Contact', async ({page}) =>
+    test('Contact @Contact', async ({page}) =>
     {
         const welcomePage = new WelcomePage(page);
         const contactPage = new ContactPage(page);
@@ -48,7 +48,7 @@ test.describe('E-Commerce - Shopping experience', () =>
         });
     });
 
-    test('Shop', async ({page}) =>
+    test('Shop @Shop', async ({page}) =>
     {
         const welcomePage = new WelcomePage(page);
         const productPage = new ProductPage(page);
