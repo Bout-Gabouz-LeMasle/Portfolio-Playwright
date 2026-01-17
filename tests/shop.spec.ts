@@ -6,6 +6,9 @@ import { ContactPage } from '../src/pages/ContactPage';
 import { ProductPage } from '../src/pages/ProductPage';
 import { ProductDetailsPage } from '../src/pages/ProductDetailsPage';
 import { CartPage } from '../src/pages/CartPage';
+import productsJson from './data/products.json';
+import { ProductsData } from '../src/interfaces/ProductsData';
+const productsData = productsJson as Record<string, ProductsData>;
 
 test.describe('E-Commerce - Shopping experiencen @Ecommerce', () => 
 {
@@ -71,15 +74,15 @@ test.describe('E-Commerce - Shopping experiencen @Ecommerce', () =>
         });
 
         await test.step('And I click on the category ', async() => {
-            await welcomePage.navigateCategory('phones')
+            await welcomePage.navigateCategory(productsData.S6.category)
         });
 
         await test.step('When I select the product', async() => {
-            await productPage.selectProduct('Samsung galaxy s6');
+            await productPage.selectProduct(productsData.S6.name);
         });
 
         await test.step('And I verify the product details', async() => {
-            await productDetailsPage.verifyProductDetails('Samsung galaxy s6', '$360 *includes tax');
+            await productDetailsPage.verifyProductDetails(productsData.S6.name, `$${productsData.S6.price} *includes tax`);
         });
 
         await test.step('And I add the product to the cart', async() => {
@@ -91,7 +94,7 @@ test.describe('E-Commerce - Shopping experiencen @Ecommerce', () =>
         });
 
         await test.step('Then I verify the products in the cart', async() => {
-            await cartPage.verifyProductInCart('Samsung galaxy s6', '360');
+            await cartPage.verifyProductInCart(productsData.S6.name, productsData.S6.price);
         });
 
         await test.step('Given I go back to the home page', async() => {
@@ -99,11 +102,11 @@ test.describe('E-Commerce - Shopping experiencen @Ecommerce', () =>
         });
 
         await test.step('When I select the product', async() => {
-            await productPage.selectProduct('Samsung galaxy s7');
+            await productPage.selectProduct(productsData.S7.name);
         });
 
         await test.step('And I verify the product details', async() => {
-            await productDetailsPage.verifyProductDetails('Samsung galaxy s7', '$800 *includes tax');
+            await productDetailsPage.verifyProductDetails(productsData.S7.name, `$${productsData.S7.price} *includes tax`);
         });
 
         await test.step('And I add the product to the cart', async() => {
@@ -114,13 +117,15 @@ test.describe('E-Commerce - Shopping experiencen @Ecommerce', () =>
             await welcomePage.navigateMenu("cart");
         });
 
-        await test.step('Then I verify the products in the cart', async() => {
-            await cartPage.verifyProductInCart('Samsung galaxy s6', '360');
-            await cartPage.verifyProductInCart('Samsung galaxy s7', '800');
-        });
+        for (const product of Object.values(productsData)) 
+        {
+            await test.step(`Then I verify the product ${product.name} in the cart`, async() => {
+                await cartPage.verifyProductInCart(product.name, product.price);
+            });
+        }
 
         await test.step('And I verify the total price in the cart', async() => {
-            await cartPage.verifyTotalPrice('1160');
+            await cartPage.verifyTotalPrice((parseInt(productsData.S6.price) + parseInt(productsData.S7.price)));
         });
 
         await test.step('Given I click on the Order button', async() => {

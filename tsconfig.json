@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "dist",
+    
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+
+    "strict": false,
+    "noImplicitAny": false
+  },
+  "include": ["tests/**/*.ts", "pages/**/*.ts"],
+  "exclude": ["node_modules"]
+}

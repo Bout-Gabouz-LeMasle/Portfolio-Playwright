@@ -97,7 +97,7 @@ export class WelcomePage extends CommonPage
      * This method is used to navigate to a specific category.
      * @param categoryName This is the name of the category to navigate to.
      */
-    async navigateCategory(categoryName: 'phones' | 'laptops' | 'monitors' = 'phones')
+    async navigateCategory(categoryName: string)
     {
         await allure.step(`Navigate to the category : ${categoryName}`, async () =>
         {

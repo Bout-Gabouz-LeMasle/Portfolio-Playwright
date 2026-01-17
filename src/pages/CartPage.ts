@@ -72,11 +72,11 @@ export class CartPage extends CommonPage
      * This method is used to verify the total price in the cart.
      * @param expectedTotalPrice The expected total price
      */
-    async verifyTotalPrice(expectedTotalPrice: string)
+    async verifyTotalPrice(expectedTotalPrice: number)
     {
         await allure.step("Verify total price in cart", async () =>
         {
-            await expect(this.totalPrice, "The total price in cart should be " + expectedTotalPrice).toHaveText(expectedTotalPrice);
+            await expect(this.totalPrice, "The total price in cart should be " + expectedTotalPrice).toHaveText(String(expectedTotalPrice));
         });
     }
 
