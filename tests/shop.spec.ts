@@ -19,7 +19,7 @@ test.describe('E-Commerce - Shopping experiencen @Ecommerce', () =>
         const commonPage = new CommonPage(page);
 
         await allure.epic('Site Web Demoblaze');      
-        await allure.feature('Panier');
+        await allure.feature('Contact');
         await allure.owner('Boutheina');
         await allure.tag('Critical');
 
@@ -62,7 +62,7 @@ test.describe('E-Commerce - Shopping experiencen @Ecommerce', () =>
         let totalPrice = 0;
 
         await allure.epic('Site Web Demoblaze');      
-        await allure.feature('Panier');
+        await allure.feature('Orders');
         await allure.owner('Boutheina');
         await allure.tag('Critical');
 
