@@ -37,9 +37,16 @@ Built with Playwright and TypeScript, it strictly follows the Page Object Model 
 ### 📦 Setup
 Clone the project and install dependencies:
 ```bash
-git clone <votre-repo-url>
-cd <nom-du-dossier>
+# 1. Clone the project (download the code)
+git clone https://github.com/Bout-Gabouz-LeMasle/Portfolio-Playwright.git
+
+#2. Enter the project folder
+cd Portfolio-Playwright
+
+# 3. Install dependencies
 npm ci
+
+#4. Install Playwright browsers
 npx playwright install --with-deps
 ```
 
@@ -108,9 +115,16 @@ Il a été conçu avec **Playwright** et **TypeScript**, en suivant strictement 
 Cloner le projet et installer les dépendances :
 
 ```bash
-git clone <votre-repo-url>
-cd <nom-du-dossier>
+# 1. Cloner le projet (Télécharger le code)
+git clone https://github.com/Bout-Gabouz-LeMasle/Portfolio-Playwright.git
+
+# 2. Entrer dans le dossier du projet
+cd Portfolio-Playwright
+
+# 3. Installer les dépendances
 npm ci
+
+# 4. Installer les navigateurs Playwright
 npx playwright install --with-deps
 ```
 
