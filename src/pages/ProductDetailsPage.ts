@@ -15,7 +15,7 @@ export class ProductDetailsPage extends CommonPage
         this.bodyDetail = page.locator('#tbodyid');
         this.productTitle = this.bodyDetail.locator('.name');
         this.productPrice = this.bodyDetail.locator('.price-container');
-        this.addToCartButton = this.bodyDetail.locator('a[onclick="addToCart(1)"]');
+        this.addToCartButton = this.bodyDetail.locator('//a[contains(@onclick, "addToCart")]');
     }
 
     /**
@@ -40,9 +40,14 @@ export class ProductDetailsPage extends CommonPage
         await allure.step("Add product to cart", async () =>
         {
             this.page.once('dialog', async dialog => {
+                console.log(`ℹ️ Une dialog est apparue : ${dialog.message()}`);
                 await dialog.accept();
-         });
+            });
+            const responsePromise = this.page.waitForResponse(
+                resp => resp.url().includes('addtocart') && resp.status() === 200
+            );
             await this.addToCartButton.click();
+            await responsePromise;
         });
     }
 }

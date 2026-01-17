@@ -5,6 +5,7 @@ import * as allure from 'allure-js-commons';
 import { ContactPage } from '../src/pages/ContactPage';
 import { ProductPage } from '../src/pages/ProductPage';
 import { ProductDetailsPage } from '../src/pages/ProductDetailsPage';
+import { CartPage } from '../src/pages/CartPage';
 
 test.describe('E-Commerce - Shopping experiencen @Ecommerce', () => 
 {
@@ -53,6 +54,7 @@ test.describe('E-Commerce - Shopping experiencen @Ecommerce', () =>
         const welcomePage = new WelcomePage(page);
         const productPage = new ProductPage(page);
         const productDetailsPage = new ProductDetailsPage(page);
+        const cartPage = new CartPage(page);
         const commonPage = new CommonPage(page);
 
         await allure.epic('Site Web Demoblaze');      
@@ -82,6 +84,43 @@ test.describe('E-Commerce - Shopping experiencen @Ecommerce', () =>
 
         await test.step('And I add the product to the cart', async() => {
             await productDetailsPage.addToCart();
+        });
+
+        await test.step('And I go to the cart page', async() => {
+            await welcomePage.navigateMenu("cart");
+        });
+
+        await test.step('Then I verify the products in the cart', async() => {
+            await cartPage.verifyProductInCart('Samsung galaxy s6', '360');
+        });
+
+        await test.step('Given I go back to the home page', async() => {
+            await welcomePage.navigateMenu("home");
+        });
+
+        await test.step('When I select the product', async() => {
+            await productPage.selectProduct('Samsung galaxy s7');
+        });
+
+        await test.step('And I verify the product details', async() => {
+            await productDetailsPage.verifyProductDetails('Samsung galaxy s7', '$800 *includes tax');
+        });
+
+        await test.step('And I add the product to the cart', async() => {
+            await productDetailsPage.addToCart();
+        });
+
+        await test.step('And I go to the cart page', async() => {
+            await welcomePage.navigateMenu("cart");
+        });
+
+        await test.step('Then I verify the products in the cart', async() => {
+            await cartPage.verifyProductInCart('Samsung galaxy s6', '360');
+            await cartPage.verifyProductInCart('Samsung galaxy s7', '800');
+        });
+
+        await test.step('And I verify the total price in the cart', async() => {
+            await cartPage.verifyTotalPrice('1160');
         });
     });
 });
