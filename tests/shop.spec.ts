@@ -59,6 +59,7 @@ test.describe('E-Commerce - Shopping experiencen @Ecommerce', () =>
         const productDetailsPage = new ProductDetailsPage(page);
         const cartPage = new CartPage(page);
         const commonPage = new CommonPage(page);
+        let totalPrice = 0;
 
         await allure.epic('Site Web Demoblaze');      
         await allure.feature('Panier');
@@ -121,11 +122,12 @@ test.describe('E-Commerce - Shopping experiencen @Ecommerce', () =>
         {
             await test.step(`Then I verify the product ${product.name} in the cart`, async() => {
                 await cartPage.verifyProductInCart(product.name, product.price);
+                totalPrice += parseInt(product.price);
             });
         }
 
         await test.step('And I verify the total price in the cart', async() => {
-            await cartPage.verifyTotalPrice((parseInt(productsData.S6.price) + parseInt(productsData.S7.price)));
+            await cartPage.verifyTotalPrice(totalPrice);
         });
 
         await test.step('Given I click on the Order button', async() => {
