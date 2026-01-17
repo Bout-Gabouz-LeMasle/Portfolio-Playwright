@@ -5,8 +5,18 @@ on:
   pull_request:
     branches: [ main, master ]
   workflow_dispatch: 
+    inputs:
+      browser:
+        description: 'Browser: chromium, firefox, webkit, all'
+        required: true
+        default: 'chromium'
+        type: choice
+        options:
+        - chromium
+        - firefox
+        - webkit
+        - all
 
-# Autorisations nécessaires pour publier le site web
 permissions:
   contents: read
   pages: write
@@ -27,7 +37,16 @@ jobs:
       run: npx playwright install --with-deps
     
     - name: Run Playwright tests
-      run: npx playwright test
+      run: |
+        BROWSER="${{ inputs.browser }}"
+        
+        if [ "$BROWSER" == "all" ] || [ -z "$BROWSER" ]; then
+          echo "🚀 Run tests on all browsers..."
+          npx playwright test
+        else
+          echo "🚀 Run tests only on: $BROWSER"
+          npx playwright test --project=$BROWSER
+        fi
 
     - uses: actions/upload-pages-artifact@v3
       if: always()
