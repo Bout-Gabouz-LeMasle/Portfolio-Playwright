@@ -122,5 +122,21 @@ test.describe('E-Commerce - Shopping experiencen @Ecommerce', () =>
         await test.step('And I verify the total price in the cart', async() => {
             await cartPage.verifyTotalPrice('1160');
         });
+
+        await test.step('Given I click on the Order button', async() => {
+            await cartPage.clickOrderButton();
+        });
+
+        await test.step('When I fill the order form', async() => {
+            await cartPage.fillOrderForm('Test User', 'Test Country', 'Test City', '123456789', '12', '2025');
+        });
+
+        await test.step('And I click on the Purchase button', async() => {
+            await cartPage.clickPurchaseButton();
+        });
+
+        await test.step('Then I verify the order confirmation', async() => {
+            await cartPage.verifyOrderConfirmation('Thank you for your purchase!', 'Test User', '1160');
+        });
     });
 });
